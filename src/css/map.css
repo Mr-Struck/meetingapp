@@ -1,8 +1,7 @@
 body {
   overflow: hidden;
 }
-.container,
-.meeting {
+.container {
   height: 83vh;
   display: flex;
   align-items: center;

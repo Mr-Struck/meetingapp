@@ -1,14 +1,217 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   DesktopOutlined,
   PieChartOutlined,
+  PlusOutlined,
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Layout,
+  Menu,
+  Modal,
+  Row,
+  TimePicker,
+  theme,
+} from "antd";
 import { Headers } from "../components/Header";
+import "../css/meeting.css";
+import moment from "moment";
 
 const { Content, Sider } = Layout;
+
+const UserForm = ({ visible, onCreate, onCancel }) => {
+  const [form] = Form.useForm();
+
+  const onFinish = (values, duration) => {
+    form.resetFields();
+    onCreate(values, duration);
+  };
+
+  const customValidation = (_, value) => {
+    if (!value || value.indexOf("DJTCO") === -1) {
+      return Promise.reject(new Error('Value must contain "DJTCO"'));
+    }
+    return Promise.resolve();
+  };
+
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
+  const [duration, setDuration] = useState(null);
+
+  const handleStartTimeChange = (time) => {
+    setStartTime(time);
+    calculateDuration(time, endTime);
+  };
+
+  const handleEndTimeChange = (time) => {
+    setEndTime(time);
+    calculateDuration(startTime, time);
+  };
+
+  const calculateDuration = (start, end) => {
+    if (start && end && start < end) {
+      const durationInMinutes = moment.duration(end.diff(start)).asMinutes();
+      setDuration(durationInMinutes);
+    } else {
+      setDuration(null);
+    }
+  };
+
+  return (
+    <Modal
+      open={visible}
+      title={
+        <h2 style={{ textAlign: "center", marginBottom: "15px" }}>
+          Add Meeting
+        </h2>
+      }
+      okText="Add"
+      onCancel={onCancel}
+      onOk={() => {
+        form
+          .validateFields()
+          .then((values) => {
+            onFinish(values, duration);
+          })
+          .catch((info) => {
+            console.log("Validate Failed:", info);
+          });
+      }}
+    >
+      <Form form={form} layout="vertical">
+        <Row justify={"space-between"}>
+          <Form.Item
+            name="email"
+            label="Email"
+            rules={[{ required: true, type: "email" }]}
+          >
+            <Input
+              placeholder={"tushar@djtcorp.in"}
+              style={{ width: "100%" }}
+            />
+          </Form.Item>
+          <Form.Item
+            name="emp_id"
+            label="Employee ID"
+            rules={[
+              {
+                required: true,
+                validator: customValidation,
+              },
+            ]}
+          >
+            <Input placeholder={"DJTCO0169"} style={{ width: "100%" }} />
+          </Form.Item>
+        </Row>
+        <Row justify={"space-between"}>
+          <Form.Item
+            name="name"
+            label="Full Name"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input placeholder="Full Name" style={{ width: "100%" }} />
+          </Form.Item>
+          <Form.Item
+            name="date"
+            label="Date of Meeting"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <DatePicker
+              showTime
+              placeholder="Meeting date"
+              style={{ width: "220px" }}
+            />
+          </Form.Item>
+        </Row>
+        <Row justify={"space-between"}>
+          <Form.Item
+            name="start_time"
+            label="Start Time"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <TimePicker
+              placeholder="Select Start Time"
+              onChange={handleStartTimeChange}
+              style={{ width: "220px" }}
+            />
+          </Form.Item>
+          <Form.Item
+            name="end_time"
+            label="End Time"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <TimePicker
+              placeholder="Select End Time"
+              onChange={handleEndTimeChange}
+              style={{ width: "220px" }}
+            />
+          </Form.Item>
+        </Row>
+        <Row justify={"space-between"}>
+          <Form.Item
+            name="agenda"
+            label="Agenda"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input placeholder="Agenda" style={{ width: "100%" }} />
+          </Form.Item>
+          <Form.Item
+            name="department"
+            label="Department"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input placeholder="Department" style={{ width: "100%" }} />
+          </Form.Item>
+        </Row>
+        <Form.Item
+          name={"description"}
+          label="Meeting Description"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input.TextArea
+            placeholder="Describe your event briefly"
+            showCount
+            maxLength={100}
+            style={{ resize: "none", height: "100px" }}
+          />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
 
 function getItem(label, key, icon, children) {
   return {
@@ -33,9 +236,20 @@ const items = [
 ];
 
 export const Meeting = () => {
+  const [visible, setVisible] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  const onCreate = (values, duration) => {
+    console.log("Received values of form:", values);
+    const userDataWithDuration = { ...values, duration };
+    setUserData(userDataWithDuration);
+    setVisible(false);
+  };
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
   return (
     <Layout>
       <Headers />
@@ -63,7 +277,54 @@ export const Meeting = () => {
               background: colorBgContainer,
             }}
           >
-            <div className="meeting">Meeting</div>
+            <div className="meeting">
+              <Button
+                icon={<PlusOutlined />}
+                type="primary"
+                onClick={() => {
+                  setVisible(true);
+                }}
+              >
+                New Meeting
+              </Button>
+              <UserForm
+                visible={visible}
+                onCreate={onCreate}
+                onCancel={() => {
+                  setVisible(false);
+                }}
+              />
+              {userData && (
+                <div>
+                  <p>
+                    New Meeting created by: <span>{userData.email}</span>
+                  </p>
+                  <p>
+                    Full Name: <span>{userData.name}</span>
+                  </p>
+                  <p>
+                    Employee ID: <span>{userData.emp_id}</span>
+                  </p>
+                  <p>
+                    Date of the Meeting:{" "}
+                    <span>{moment(userData.date.$d).format("")}</span>
+                  </p>
+                  <p>
+                    Duration:{" "}
+                    <span>{userData.duration.toFixed(0)} minutes</span>
+                  </p>
+                  <p>
+                    Agenda: <span>{userData.agenda}</span>
+                  </p>
+                  <p>
+                    Department: <span>{userData.department}</span>
+                  </p>
+                  <p>
+                    Description: <span>{userData.description}</span>
+                  </p>
+                </div>
+              )}
+            </div>
           </Content>
         </Layout>
       </Layout>

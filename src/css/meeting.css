@@ -1,0 +1,13 @@
+.meeting {
+  height: 83vh;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+p {
+  margin: 10px 0;
+}
+p span {
+  font-weight: 600;
+  font-size: 16px;
+}
