@@ -1,0 +1,445 @@
+body {
+  overflow: hidden;
+}
+.container,
+.meeting {
+  height: 83vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.map {
+  width: 90vw;
+  height: 69vh;
+  position: relative;
+  /* background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    #ccc 10px,
+    #ccc 20px
+  ); */
+  background-size: 10px 10px;
+  background-image: conic-gradient(
+    #28487d 90deg,
+    #617ca2 180deg 270deg,
+    #28487d 270deg
+  );
+  border-radius: 12px;
+}
+.compartment {
+  position: absolute;
+  border: 1px solid #666;
+  background-color: #ffcccc;
+  opacity: 0.8;
+  z-index: 1;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.compartment:hover {
+  opacity: 1;
+}
+.compartment.meet:hover {
+  opacity: 1;
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.5);
+}
+.compartment.meet {
+  background-color: #ccffcc;
+  cursor: pointer;
+}
+.compartment.meet .compartment-label {
+  font-size: 11px;
+  background-color: #3333;
+  color: #333;
+}
+.compartment-label {
+  position: absolute;
+  background-color: #3333;
+  color: #333;
+  padding: 5px;
+  font-weight: 700;
+  font-size: 9px;
+  text-align: center;
+  border-radius: 40px;
+  z-index: 3;
+  user-select: none;
+}
+.section {
+  position: absolute;
+  border: 1px solid #333;
+}
+.section.section-a {
+  height: 101px;
+  width: 101px;
+  top: 20px;
+  left: 20px;
+  border: none;
+}
+.section.section-d {
+  top: 20px;
+  left: 120px;
+  width: 70px;
+  height: 100px;
+}
+.compartment.compartment-a {
+  top: -1px;
+  left: -1px;
+  width: 60px;
+  height: 40px;
+  /* box-shadow: inset 2px 2px 10px 5px rgba(0, 0, 0, 0.4); */
+}
+.compartment.compartment-b {
+  top: 60px;
+  left: -1px;
+  width: 60px;
+  height: 40px;
+}
+.compartment.compartment-c {
+  top: 120px;
+  left: 20px;
+  width: 101px;
+  height: 80px;
+  border-left: none;
+}
+.compartment.compartment-c::before,
+.compartment.compartment-c::after {
+  font-size: 8px;
+  color: #fff;
+  font-weight: 600;
+  position: absolute;
+  left: -20px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15px;
+  background-color: #333;
+  border-radius: 20px;
+}
+.compartment.compartment-c::before {
+  content: "ENTRY";
+  top: 15px;
+  padding: 0 5px;
+}
+.compartment.compartment-c::after {
+  content: "EXIT";
+  top: 50px;
+  padding: 0 2px;
+}
+.compartment.compartment-d {
+  top: 0px;
+  left: -1px;
+  width: 70px;
+  height: 30px;
+}
+.compartment.compartment-h {
+  top: 30px;
+  left: -1px;
+  width: 70px;
+  height: 35px;
+}
+.compartment.compartment-i {
+  top: 65px;
+  left: -1px;
+  width: 70px;
+  height: 35px;
+}
+.compartment.compartment-e {
+  top: 120px;
+  left: 120px;
+  width: 200px;
+  height: 80px;
+}
+.compartment.compartment-f {
+  top: 200px;
+  left: 20px;
+  width: 60px;
+  height: 80px;
+}
+.compartment.compartment-g {
+  top: 280px;
+  left: 20px;
+  width: 40px;
+  height: 120px;
+}
+.compartment.compartment-j {
+  top: 20px;
+  left: 200px;
+  width: 453px;
+  height: 90px;
+  border: 1px dashed #333;
+  background-color: #fff;
+}
+.compartment.compartment-j::before {
+  content: "";
+  position: absolute;
+  top: 167px;
+  left: 119px;
+  width: 331px;
+  height: 10px;
+  border: 1px solid #333;
+  background-color: #fff;
+}
+.compartment.compartment-j::after {
+  content: "";
+  position: absolute;
+  top: 88px;
+  left: 130px;
+  width: 320px;
+  height: 70px;
+  border: 1px dashed #333;
+  background-color: #fff;
+  border-top: none;
+}
+.compartment.compartment-k {
+  top: 500px;
+  left: 20px;
+  width: 40px;
+  height: 80px;
+}
+.section.section-l {
+  top: 400px;
+  left: 80px;
+  width: 400px;
+  height: 250px;
+  border: 1px dashed #333;
+}
+.compartment.compartment-l {
+  top: 0px;
+  left: 0px;
+  width: 60px;
+  height: 250px;
+  border: 1px dashed #333;
+}
+.compartment.compartment-m {
+  top: 0px;
+  left: 60px;
+  width: 280px;
+  height: 250px;
+  border: 1px dashed #333;
+}
+.compartment.compartment-n {
+  top: 0px;
+  left: 340px;
+  width: 60px;
+  height: 250px;
+  border: 1px dashed #333;
+}
+.section.section-o {
+  top: 280px;
+  left: 60px;
+  width: 360px;
+  height: 250px;
+  border: none;
+}
+.compartment.compartment-o {
+  top: 0px;
+  left: 0px;
+  width: 80px;
+  height: 50px;
+}
+.compartment.compartment-p {
+  top: 0px;
+  left: 120px;
+  width: 120px;
+  height: 70px;
+}
+.compartment.compartment-q {
+  top: 0px;
+  left: 240px;
+  width: 120px;
+  height: 70px;
+}
+.compartment.compartment-r {
+  top: 20px;
+  left: 680px;
+  width: 180px;
+  height: 100px;
+}
+.section.section-s {
+  top: 400px;
+  left: 550px;
+  width: 400px;
+  height: 250px;
+  border: 1px dashed #333;
+}
+.compartment.compartment-s {
+  top: 0px;
+  left: 0px;
+  width: 400px;
+  height: 250px;
+  border: 1px dashed #333;
+}
+.compartment.compartment-t {
+  bottom: -1px;
+  left: 0px;
+  width: 200px;
+  height: 105px;
+  background: #fff;
+  border: 1px dashed #333;
+  pointer-events: none;
+  cursor: none;
+  z-index: 99;
+}
+.section.section-u {
+  top: 199px;
+  left: 520px;
+  width: 220px;
+  height: 100px;
+}
+.compartment.compartment-u {
+  top: -1px;
+  left: -1px;
+  width: 101px;
+  height: 100px;
+}
+.compartment.compartment-v {
+  top: -1px;
+  left: 100px;
+  width: 120px;
+  height: 100px;
+}
+.compartment.compartment-w {
+  top: 20px;
+  left: 860px;
+  width: 80px;
+  height: 180px;
+}
+.compartment.compartment-x {
+  top: 200px;
+  left: 860px;
+  width: 140px;
+  height: 100px;
+}
+.compartment.compartment-y {
+  top: 20px;
+  left: 960px;
+  width: 120px;
+  height: 180px;
+  border: 1px dashed #333;
+  background-color: #fff;
+}
+.compartment.compartment-z {
+  top: 20px;
+  left: 1080px;
+  width: 230px;
+  height: 180px;
+  border: 1px dashed #333;
+  background-color: #fff;
+}
+.compartment.compartment-z::after {
+  content: "";
+  position: absolute;
+  top: 178px;
+  left: 77px;
+  width: 150px;
+  height: 100px;
+  background-color: #fff;
+  border: 1px dashed #333;
+  border-top: none;
+}
+.section.section-z {
+  top: 401px;
+  left: 981px;
+  width: 329px;
+  height: 250px;
+  border: none;
+}
+.compartment.compartment-aa {
+  top: 59px;
+  left: 0px;
+  width: 101px;
+  height: 85px;
+}
+.compartment.compartment-af {
+  content: "";
+  position: absolute;
+  top: 143px;
+  left: 0px;
+  width: 101px;
+  height: 40px;
+  background-color: #ffcccc;
+  border: 1px solid #333;
+}
+.compartment.compartment-ab {
+  top: -1px;
+  left: 100px;
+  width: 229px;
+  height: 250px;
+}
+.compartment.compartment-ab::after {
+  content: "";
+  position: absolute;
+  top: 181px;
+  left: -101px;
+  width: 100px;
+  height: 66px;
+  background-color: #ffcccc;
+  border: 1px solid #333;
+  border-right: none;
+}
+.compartment.compartment-ac {
+  top: 20px;
+  left: 1310px;
+  width: 220px;
+  height: 203px;
+}
+.compartment.compartment-ag {
+  content: "";
+  position: absolute;
+  top: 222px;
+  left: 1310px;
+  width: 220px;
+  background-color: #ffcccc;
+  height: 102px;
+}
+.compartment.compartment-ae {
+  top: 323px;
+  left: 1360px;
+  height: 50px;
+  width: 170px;
+  border-bottom-style: dashed;
+}
+.compartment.compartment-ae::after {
+  content: "";
+  position: absolute;
+  height: 80px;
+  width: 168px;
+  top: 49px;
+  left: -1px;
+  border: 1px solid #333;
+  background-color: #ffcccc;
+  border-top: none;
+}
+.section-ad {
+  top: 500px;
+  left: 1309px;
+  width: 220px;
+  height: 150px;
+}
+.compartment.compartment-ad {
+  height: 150px;
+  top: -1px;
+  left: -1px;
+  width: 120px;
+}
+.compartment.compartment-ah {
+  top: -1px;
+  left: 118px;
+  height: 80px;
+  width: 102px;
+  border-left-style: dashed;
+}
+.compartment.compartment-ai {
+  top: 78px;
+  left: 118px;
+  height: 71px;
+  width: 102px;
+  border-left-style: dashed;
+}
+.compartment-label a {
+  text-decoration: none;
+  color: #333;
+}

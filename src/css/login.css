@@ -1,0 +1,47 @@
+.form {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, #2192ff, #10309b, #2192ff);
+  padding: 0 2em;
+}
+.form-container {
+  width: 50em;
+  background: #fff;
+  padding: 2em 3em 0 3em;
+  border-radius: 1em;
+  box-shadow: 10px 15px 25px rgba(0, 0, 0, 0.2);
+}
+.form-contain {
+  background: #fff;
+  padding: 2em 3em 0 3em;
+  border-radius: 1em;
+  box-shadow: 10px 15px 25px rgba(0, 0, 0, 0.2);
+}
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"] {
+  font-family: "Montserrat", sans-serif;
+  width: 300px;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+label,
+span {
+  font-weight: 500;
+}
+.registerlink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.icon {
+  margin-right: 2px;
+  font-size: 16px;
+  color: #bbb;
+}
