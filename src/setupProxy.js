@@ -24,7 +24,7 @@ module.exports = function (app) {
 
   app.use(
     createProxyMiddleware("/login", {
-      target: "https://dev-meeting-room-ebeee743b92a.herokuapp.com/user",
+      target: "192.168.21.96:8000/",
       changeOrigin: true,
     })
   );

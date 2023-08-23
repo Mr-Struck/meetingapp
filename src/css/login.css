@@ -3,8 +3,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 40px;
   background: radial-gradient(circle, #2192ff, #10309b, #2192ff);
   padding: 0 2em;
+}
+.form h1 {
+  font-size: 3em;
+  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 .form-container {
   width: 50em;

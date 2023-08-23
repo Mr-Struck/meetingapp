@@ -32,12 +32,14 @@ export const Login = () => {
 
   return (
     <div className="form">
+      <h1>Welcome to DJT Meetings</h1>
       <div className="form-contain">
         <Typography.Title
           style={{
             fontFamily: "'Montserrat', sans-serif",
             textAlign: "center",
             marginBottom: 30,
+            fontSize: 30,
           }}
         >
           Login Form
