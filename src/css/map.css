@@ -174,10 +174,10 @@ body {
 .compartment.compartment-j::before {
   content: "";
   position: absolute;
-  top: 167px;
+  top: 172px;
   left: 129px;
   width: 328px;
-  height: 10px;
+  height: 5px;
   border: 1px solid #333;
   background-color: #fff;
 }
@@ -187,7 +187,7 @@ body {
   top: 98px;
   left: 129px;
   width: 328px;
-  height: 70px;
+  height: 75px;
   border: 1px dashed #333;
   background-color: #fff;
   border-top: none;
@@ -437,6 +437,36 @@ body {
   height: 71px;
   width: 102px;
   border-left-style: dashed;
+}
+.compartment.compartment-aj,
+.compartment.compartment-aj::before,
+.compartment.compartment-aj::after {
+  height: 8px;
+  width: 30px;
+  top: 650px;
+  left: 521px;
+  background: repeating-linear-gradient(
+    45deg,
+    #fff,
+    #fff 2px,
+    #ccc 2px,
+    #ccc 4px
+  );
+}
+.compartment.compartment-aj::before {
+  content: "";
+  position: absolute;
+  height: 6px;
+  top: -1px;
+  left: 500px;
+}
+.compartment.compartment-aj::after {
+  content: "";
+  position: absolute;
+  height: 30px;
+  width: 6px;
+  top: -188px;
+  left: 1008px;
 }
 .compartment-label a {
   text-decoration: none;

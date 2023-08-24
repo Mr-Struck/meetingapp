@@ -210,6 +210,7 @@ export const Map = () => {
                     </div>
                   </div>
                 </div>
+                <div className="compartment compartment-aj"></div>
               </div>
             </div>
           </Content>
