@@ -85,7 +85,7 @@ export const Login = () => {
             />
           </Form.Item>
           <Form.Item>
-            <Link className="login-form-forgot" to="/">
+            <Link className="login-form-forgot" to="/forget">
               Forgot password?
             </Link>
           </Form.Item>
@@ -114,7 +114,7 @@ export const Login = () => {
             </p>
           </Form.Item>
         </Form>
-        {msg && <p>{msg}</p>}
+        {msg && <p className="error">{msg}</p>}
       </div>
     </div>
   );

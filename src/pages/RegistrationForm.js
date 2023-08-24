@@ -53,6 +53,7 @@ export const RegistrationForm = () => {
   const [designation, setDesignation] = useState("");
   const [department, setDepartment] = useState("");
   const [greeting, setGreeting] = useState("");
+  const [msg, setMsg] = useState("");
 
   const navigate = useNavigate();
 
@@ -105,6 +106,7 @@ export const RegistrationForm = () => {
           toast.success("User added successfully");
           navigate("/");
         }
+        setMsg(response.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -316,6 +318,7 @@ export const RegistrationForm = () => {
               Already registered? <Link to="/">Login!</Link>
             </p>
           </Form.Item>
+          {msg && <p className="error">{msg}</p>}
         </Form>
         <div className="password">
           <Collapse items={item} bordered={true} />

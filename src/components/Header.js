@@ -3,6 +3,7 @@ import "../css/header.css";
 import { Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 import { Clock } from "./Clock";
+import { Link } from "react-router-dom";
 
 export const Headers = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,9 +21,11 @@ export const Headers = () => {
             <Clock />
           </li>
           <li>
-            <Button icon={<LogoutOutlined />} type="primary" danger>
-              Logout
-            </Button>
+            <Link to="/">
+              <Button icon={<LogoutOutlined />} type="primary" danger>
+                Logout
+              </Button>
+            </Link>
           </li>
         </ul>
       </div>
