@@ -97,7 +97,7 @@ export const Map = () => {
                 </div>
                 <div className="compartment compartment-e meet">
                   <div className="compartment-label">
-                    <Link to={"/meeting"}>Himalaya Meeting Room</Link>
+                    <Link to={"/meeting"}>Himalayas Meeting Room</Link>
                   </div>
                 </div>
                 <div className="compartment compartment-f meet">
