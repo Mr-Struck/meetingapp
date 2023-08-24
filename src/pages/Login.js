@@ -26,6 +26,9 @@ export const Login = () => {
           navigate("/map");
         }
         setMsg(response.data.data);
+        setInterval(() => {
+          setMsg("");
+        }, 2000);
       })
       .catch((err) => console.error(err));
   };

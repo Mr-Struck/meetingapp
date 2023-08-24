@@ -10,7 +10,7 @@ module.exports = function (app) {
 
   app.use(
     createProxyMiddleware("/verify-otp/", {
-      target: "https://dev-meeting-room-ebeee743b92a.herokuapp.com/user",
+      target: "http://192.168.21.96:8000/user",
       changeOrigin: true,
     })
   );
@@ -32,6 +32,13 @@ module.exports = function (app) {
   app.use(
     createProxyMiddleware("/forgot_password", {
       target: "http://192.168.21.96:8000/user",
+      changeOrigin: true,
+    })
+  );
+
+  app.use(
+    createProxyMiddleware("/aravalli/", {
+      target: "http://192.168.21.96:8000",
       changeOrigin: true,
     })
   );

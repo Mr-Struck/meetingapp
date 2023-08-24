@@ -176,6 +176,14 @@ body {
   left: 20px;
   width: 50px;
   height: 120px;
+  background: repeating-linear-gradient(
+    45deg,
+    #fff,
+    #fff 7px,
+    #dedede 7px,
+    #dedede 14px
+  );
+  pointer-events: none;
 }
 .compartment.compartment-j {
   top: 20px;
@@ -410,13 +418,18 @@ body {
   height: 203px;
 }
 .compartment.compartment-ag {
-  content: "";
-  position: absolute;
   top: 222px;
   left: 1310px;
   width: 220px;
-  background-color: #ffcccc;
   height: 102px;
+  background: repeating-linear-gradient(
+    45deg,
+    #fff,
+    #fff 7px,
+    #dedede 7px,
+    #dedede 14px
+  );
+  pointer-events: none;
 }
 .compartment.compartment-ae {
   top: 323px;
