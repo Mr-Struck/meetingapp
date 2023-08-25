@@ -2,8 +2,13 @@ import { Button, Collapse, Form, Input, Typography } from "antd";
 import axios from "axios";
 import React, { useState } from "react";
 import "../css/login.css";
-import { LockOutlined, NumberOutlined, UserOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import {
+  CloseCircleOutlined,
+  LockOutlined,
+  NumberOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 
 const text = (
@@ -123,6 +128,9 @@ export const ForgetPassword = () => {
         className="form-container"
         style={{ width: "35rem", paddingBottom: "1rem" }}
       >
+        <Link to={"/"}>
+          <CloseCircleOutlined className="close" />
+        </Link>
         <Typography.Title
           style={{
             fontFamily: "'Montserrat', sans-serif",
@@ -135,7 +143,7 @@ export const ForgetPassword = () => {
           <br /> Don't worry we've got You.
         </Typography.Title>
         <Form
-          name="loginform"
+          name="forgot_form"
           form={form}
           onFinish={onFinish}
           layout="vertical"

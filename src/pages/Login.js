@@ -4,12 +4,14 @@ import { Button, Form, Input, Typography } from "antd";
 import "../css/login.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useToken } from "../context/TokenContext";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
+  const { setAccessToken } = useToken();
 
   const onFinish = (values) => {
     // console.log("Received values of form: ", values);
@@ -20,9 +22,10 @@ export const Login = () => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         if (response.data.status) {
           console.log(response.data);
+          const token = response.data.access_token;
+          setAccessToken(token);
           navigate("/map");
         }
         setMsg(response.data.data);

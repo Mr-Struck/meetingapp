@@ -38,7 +38,14 @@ module.exports = function (app) {
 
   app.use(
     createProxyMiddleware("/aravalli/", {
-      target: "http://192.168.21.96:8000",
+      target: "http://192.168.21.96:8000/",
+      changeOrigin: true,
+    })
+  );
+
+  app.use(
+    createProxyMiddleware("/aravalli/user/schedule", {
+      target: "http://192.168.21.96:8000/",
       changeOrigin: true,
     })
   );

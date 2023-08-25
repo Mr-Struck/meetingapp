@@ -23,13 +23,40 @@ import "../css/meeting.css";
 import moment from "moment";
 import axios from "axios";
 // import { DataGrid } from "@mui/x-data-grid";
+import { useToken } from "../context/TokenContext";
 
 const { Content, Sider } = Layout;
 
 const UserForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
+  const [email, setEmail] = useState("");
+  const [empId, setEmpId] = useState("");
+  const [name, setName] = useState("");
+  const [start_date, setDate] = useState("");
+  const [agenda, setAgenda] = useState("");
+  const [desc, setDesc] = useState("");
+  const [dept, setDept] = useState("");
 
   const onFinish = (values, duration) => {
+    axios
+      .post("/aravalli/user/schedule", {
+        email: email,
+        emp_id: empId,
+        full_name: name,
+        access_code: 0,
+        approved: true,
+        date: moment(start_date).format(),
+        end_date: moment(endTime).format(),
+        duration: parseInt(duration.toFixed(0)),
+        time: moment(start_date).format("h:mm:ss"),
+        epoch: 0,
+        internal_meeting: true,
+        agenda: agenda,
+        department: dept,
+        description: desc,
+      })
+      .then((resp) => console.log(resp.data))
+      .catch((err) => console.log(err));
     form.resetFields();
     onCreate(values, duration);
   };
@@ -41,16 +68,26 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
     return Promise.resolve();
   };
 
+  const { accessToken } = useToken();
+
   useEffect(() => {
-    axios
-      .get("/aravalli")
+    // axios
+    //   .get("/aravalli")
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    fetch(`/aravalli/?token=${accessToken}`)
+      .then((resp) => resp.json())
       .then((response) => {
         console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [accessToken]);
 
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
@@ -104,8 +141,10 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
             rules={[{ required: true, type: "email" }]}
           >
             <Input
+              value={email}
               placeholder={"tushar@djtcorp.in"}
               style={{ width: "100%" }}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Item>
           <Form.Item
@@ -118,7 +157,12 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
               },
             ]}
           >
-            <Input placeholder={"DJTCO0169"} style={{ width: "100%" }} />
+            <Input
+              value={empId}
+              placeholder={"DJTCO0169"}
+              style={{ width: "100%" }}
+              onChange={(e) => setEmpId(e.target.value)}
+            />
           </Form.Item>
         </Row>
         <Row justify={"space-between"}>
@@ -131,7 +175,12 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
               },
             ]}
           >
-            <Input placeholder="Full Name" style={{ width: "100%" }} />
+            <Input
+              value={name}
+              placeholder="Full Name"
+              style={{ width: "100%" }}
+              onChange={(e) => setName(e.target.value)}
+            />
           </Form.Item>
           <Form.Item
             name="date"
@@ -143,9 +192,11 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
             ]}
           >
             <DatePicker
+              value={start_date}
               showTime
               placeholder="Meeting date"
               style={{ width: "220px" }}
+              onChange={(e) => setDate(e.target)}
             />
           </Form.Item>
         </Row>
@@ -191,7 +242,12 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
               },
             ]}
           >
-            <Input placeholder="Agenda" style={{ width: "100%" }} />
+            <Input
+              value={agenda}
+              onChange={(e) => setAgenda(e.target.value)}
+              placeholder="Agenda"
+              style={{ width: "100%" }}
+            />
           </Form.Item>
           <Form.Item
             name="department"
@@ -202,7 +258,12 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
               },
             ]}
           >
-            <Input placeholder="Department" style={{ width: "100%" }} />
+            <Input
+              value={dept}
+              onChange={(e) => setDept(e.target.value)}
+              placeholder="Department"
+              style={{ width: "100%" }}
+            />
           </Form.Item>
         </Row>
         <Form.Item
@@ -215,6 +276,8 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
           ]}
         >
           <Input.TextArea
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
             placeholder="Describe your event briefly"
             showCount
             maxLength={100}
