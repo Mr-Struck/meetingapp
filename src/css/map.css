@@ -79,7 +79,7 @@ body {
 .section.section-d {
   top: 20px;
   left: 120px;
-  width: 70px;
+  width: 100px;
   height: 100px;
 }
 .compartment.compartment-a {
@@ -144,19 +144,19 @@ body {
 .compartment.compartment-d {
   top: 0px;
   left: -1px;
-  width: 70px;
+  width: 100px;
   height: 30px;
 }
 .compartment.compartment-h {
   top: 30px;
   left: -1px;
-  width: 70px;
+  width: 100px;
   height: 35px;
 }
 .compartment.compartment-i {
   top: 65px;
   left: -1px;
-  width: 70px;
+  width: 100px;
   height: 35px;
 }
 .compartment.compartment-e {
@@ -187,8 +187,8 @@ body {
 }
 .compartment.compartment-j {
   top: 20px;
-  left: 190px;
-  width: 460px;
+  left: 220px;
+  width: 490px;
   height: 100px;
   border: 1px dashed #333;
   background-color: #fff;
@@ -197,8 +197,8 @@ body {
   content: "";
   position: absolute;
   top: 172px;
-  left: 129px;
-  width: 328px;
+  left: 99px;
+  width: 388px;
   height: 5px;
   border: 1px solid #333;
   background-color: #fff;
@@ -207,8 +207,8 @@ body {
   content: "";
   position: absolute;
   top: 98px;
-  left: 129px;
-  width: 328px;
+  left: 99px;
+  width: 388px;
   height: 75px;
   border: 1px dashed #333;
   background-color: #fff;
@@ -275,7 +275,7 @@ body {
 }
 .compartment.compartment-r {
   top: 20px;
-  left: 650px;
+  left: 730px;
   width: 210px;
   height: 100px;
 }
@@ -323,10 +323,10 @@ body {
   height: 100px;
 }
 .compartment.compartment-w {
-  top: 20px;
+  top: 120px;
   left: 860px;
   width: 80px;
-  height: 180px;
+  height: 80px;
 }
 .compartment.compartment-x {
   top: 200px;
@@ -476,8 +476,10 @@ body {
   border-left-style: dashed;
 }
 .compartment.compartment-aj,
+.compartment.compartment-ak,
 .compartment.compartment-aj::before,
-.compartment.compartment-aj::after {
+.compartment.compartment-aj::after,
+.compartment.compartment-ak::before {
   height: 8px;
   width: 30px;
   top: 650px;
@@ -489,21 +491,35 @@ body {
     #ccc 2px,
     #ccc 4px
   );
+  border: 1px solid #333;
+}
+.compartment.compartment-ak {
+  top: 277px;
+  left: 155px;
+  height: 6px;
 }
 .compartment.compartment-aj::before {
   content: "";
   position: absolute;
-  height: 6px;
-  top: -1px;
+  height: 5px;
+  top: -2px;
   left: 500px;
 }
 .compartment.compartment-aj::after {
   content: "";
   position: absolute;
   height: 30px;
-  width: 6px;
-  top: -188px;
-  left: 1008px;
+  width: 5px;
+  top: -190px;
+  left: 1004px;
+}
+.compartment.compartment-ak::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  left: 270px;
+  width: 5px;
+  height: 40px;
 }
 .compartment-label a {
   text-decoration: none;
