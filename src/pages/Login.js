@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Typography } from "antd";
 import "../css/login.css";
@@ -11,8 +11,23 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
+  const [greeting, setGreeting] = useState("");
+
   const navigate = useNavigate();
   const { setAccessToken } = useToken();
+
+  useEffect(() => {
+    const currentTime = new Date().getHours();
+    if (currentTime >= 6 && currentTime < 12) {
+      setGreeting("Good Morning");
+    } else if (currentTime >= 12 && currentTime < 15) {
+      setGreeting("Good Afternoon");
+    } else if (currentTime >= 15 && currentTime < 21) {
+      setGreeting("Good Evening");
+    } else {
+      setGreeting("Good Night");
+    }
+  }, []);
 
   const onFinish = (values) => {
     // console.log("Received values of form: ", values);
@@ -42,18 +57,18 @@ export const Login = () => {
       <div className="contain">
         <div className="image-container">
           <img src={img} alt="img" />
-          {/* <h1>Welcome to DJT Meetings</h1> */}
         </div>
         <div className="form-contain">
           <Typography.Title
             style={{
               fontFamily: "'Montserrat', sans-serif",
-              textAlign: "center",
-              marginBottom: 30,
+              marginBottom: 40,
               fontSize: 30,
             }}
           >
             Welcome, User
+            <br />
+            <span style={{ fontSize: 20, color: "#1677ff" }}>{greeting}</span>
           </Typography.Title>
           <Form
             name="normal_login"

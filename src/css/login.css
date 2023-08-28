@@ -17,6 +17,7 @@ body {
   backdrop-filter: blur(4px) saturate(200%);
 }
 .form .contain {
+  zoom: 1.1;
   height: 30em;
   width: 70em;
   display: flex;
@@ -63,6 +64,7 @@ input[type="number"] {
   width: 300px;
 }
 input[type="password"] {
+  width: 300px;
   font-family: "Montserrat", sans-serif;
 }
 input[type="number"]::-webkit-inner-spin-button,

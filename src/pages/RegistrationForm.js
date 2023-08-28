@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../css/registration.css";
 import { Button, Collapse, Form, Input, Row, Select, Typography } from "antd";
 import axios from "axios";
@@ -52,23 +52,9 @@ export const RegistrationForm = () => {
   const [employee, setEmployee] = useState("");
   const [designation, setDesignation] = useState("");
   const [department, setDepartment] = useState("");
-  const [greeting, setGreeting] = useState("");
   const [msg, setMsg] = useState("");
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const currentTime = new Date().getHours();
-    if (currentTime >= 6 && currentTime < 12) {
-      setGreeting("Good Morning");
-    } else if (currentTime >= 12 && currentTime < 15) {
-      setGreeting("Good Afternoon");
-    } else if (currentTime >= 15 && currentTime < 21) {
-      setGreeting("Good Evening");
-    } else {
-      setGreeting("Good Night");
-    }
-  }, []);
 
   const CustomEmailValidator = (_, value) => {
     if (!value || value.includes("@djt")) {
@@ -116,7 +102,6 @@ export const RegistrationForm = () => {
 
   return (
     <div className="form">
-      <h1>Hello new user, {greeting}</h1>
       <div className="form-container">
         <Typography.Title
           style={{
@@ -126,7 +111,7 @@ export const RegistrationForm = () => {
             fontSize: 30,
           }}
         >
-          Registration Form
+          Hello new user, register here
         </Typography.Title>
         <Form
           name="register-form"
@@ -315,7 +300,7 @@ export const RegistrationForm = () => {
               <br />
             </div>
             <p style={{ marginTop: 5 }}>
-              Already registered? <Link to="/">Login!</Link>
+              Already registered? <Link to="/auth">Login!</Link>
             </p>
           </Form.Item>
           {msg && <p className="error">{msg}</p>}
