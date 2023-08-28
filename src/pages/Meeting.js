@@ -22,8 +22,8 @@ import { Headers } from "../components/Header";
 import "../css/meeting.css";
 import moment from "moment";
 import axios from "axios";
-import { DataGrid } from "@mui/x-data-grid";
 import { useToken } from "../context/TokenContext";
+import { Table } from "../components/Table";
 
 const { Content, Sider } = Layout;
 
@@ -67,27 +67,6 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
     }
     return Promise.resolve();
   };
-
-  const { accessToken } = useToken();
-
-  useEffect(() => {
-    // axios
-    //   .get("/aravalli")
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    fetch(`/aravalli/?token=${accessToken}`)
-      .then((resp) => resp.json())
-      .then((response) => {
-        console.log(response.data[0]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [form, accessToken]);
 
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
@@ -311,65 +290,58 @@ const items = [
   ]),
 ];
 
-const columns = [
-  { field: "sno", headerName: "S.No.", width: 70 },
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 200,
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-  },
-  { field: "email", headerName: "Email", width: 230 },
-  { field: "start_time", headerName: "Start Time[hh:mm:ss]", width: 180 },
-  {
-    field: "end_time",
-    headerName: "End Time[hh:mm:ss]",
-    width: 180,
-  },
-  {
-    field: "type",
-    headerName: "Internal?",
-    type: "boolean",
-    width: 120,
-  },
-  {
-    field: "dept",
-    headerName: "Department",
-    width: 130,
-  },
-];
-
-const rows = [
-  {
-    id: 1,
-    sno: 1,
-    lastName: "Askari Rizvi",
-    firstName: "Syed Hasan",
-    email: "syed.hasan@djtcorp.com",
-    start_time: "14:30:00",
-    end_time: "15:00:00",
-    type: true,
-    dept: "IT/Tech",
-  },
-  {
-    id: 2,
-    sno: 2,
-    lastName: "Srivastava",
-    firstName: "Tushar",
-    email: "tushar.srivastava@djtcorp.com",
-    start_time: "15:10:00",
-    end_time: "15:45:00",
-    type: false,
-    dept: "Administration",
-  },
-];
+// const columns = [
+//   { field: "id", headerName: "S.No.", width: 70 },
+//   {
+//     field: "full_name",
+//     headerName: "Full Name",
+//     description: "This column has a value getter and is not sortable.",
+//     sortable: false,
+//     width: 200,
+//   },
+//   { field: "email", headerName: "Email", width: 230 },
+//   { field: "date", headerName: "Start Time[hh:mm:ss]", width: 180 },
+//   {
+//     field: "end_date",
+//     headerName: "End Time[hh:mm:ss]",
+//     width: 180,
+//   },
+//   {
+//     field: "internal_meeting",
+//     headerName: "Internal?",
+//     type: "boolean",
+//     width: 120,
+//   },
+//   {
+//     field: "department",
+//     headerName: "Department",
+//     width: 130,
+//   },
+//   {
+//     field: "agenda",
+//     headerName: "Agenda",
+//     width: 150,
+//   },
+// ];
 
 export const Meeting = () => {
   const [visible, setVisible] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [data, setData] = useState([]);
+
+  const { accessToken } = useToken();
+
+  useEffect(() => {
+    fetch(`/aravalli/?token=${accessToken}`)
+      .then((resp) => resp.json())
+      .then((response) => {
+        console.log(response.data);
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [accessToken]);
 
   const onCreate = (values, duration) => {
     console.log("Received values of form:", values);
@@ -420,19 +392,7 @@ export const Meeting = () => {
                 New Meeting
               </Button>
               <h1>Upcoming Meetings</h1>
-              <div style={{ width: "100%" }}>
-                <DataGrid
-                  rows={rows}
-                  columns={columns}
-                  initialState={{
-                    pagination: {
-                      paginationModel: { page: 0, pageSize: 10 },
-                    },
-                  }}
-                  pageSizeOptions={[10]}
-                  checkboxSelection
-                />
-              </div>
+              <Table data={data} />
               <UserForm
                 visible={visible}
                 onCreate={onCreate}

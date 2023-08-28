@@ -128,7 +128,7 @@ export const ForgetPassword = () => {
         className="form-container"
         style={{ width: "35rem", paddingBottom: "1rem" }}
       >
-        <Link to={"/"}>
+        <Link to={"/auth/login"}>
           <CloseCircleOutlined className="close" />
         </Link>
         <Typography.Title
@@ -139,8 +139,10 @@ export const ForgetPassword = () => {
             fontSize: 30,
           }}
         >
-          Forgot Password?
-          <br /> Don't worry we've got You.
+          <h2>
+            Forgot Password?
+            <br /> Don't worry we've got You.
+          </h2>
         </Typography.Title>
         <Form
           name="forgot_form"

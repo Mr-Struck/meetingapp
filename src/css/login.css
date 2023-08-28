@@ -1,12 +1,44 @@
+body {
+  background: url("/home/djt/Documents/meetingform/public/images/wepik-export-20230828090212uvOO.png");
+  background-position: center;
+  background-size: cover;
+  background-color: #0005;
+  background-blend-mode: multiply;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  min-width: 100vw;
+}
 .form {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  gap: 40px;
-  background: radial-gradient(circle, #2192ff, #10309b, #2192ff);
   padding: 0 2em;
+  backdrop-filter: blur(4px) saturate(200%);
+}
+.form .contain {
+  height: 30em;
+  width: 70em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 10px 15px 25px rgba(0, 0, 0, 0.2);
+  border-radius: 1em;
+  overflow: hidden;
+  padding: 1em;
+  background-color: #fff;
+}
+.image-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1em;
+  background-color: #000;
+}
+.image-container img {
+  height: 135%;
 }
 .form h1 {
   font-size: 3em;
@@ -17,14 +49,12 @@
   background: #fff;
   padding: 2em 3em 0 3em;
   border-radius: 1em;
-  box-shadow: 10px 15px 25px rgba(0, 0, 0, 0.2);
   position: relative;
 }
 .form-contain {
   background: #fff;
   padding: 2em 3em 0 3em;
-  border-radius: 1em;
-  box-shadow: 10px 15px 25px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 10px 15px 25px rgba(0, 0, 0, 0.2); */
 }
 input[type="text"],
 input[type="email"],

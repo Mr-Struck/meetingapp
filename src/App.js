@@ -5,16 +5,26 @@ import { RegistrationForm } from "./pages/RegistrationForm";
 import { Login } from "./pages/Login";
 import { Meeting } from "./pages/Meeting";
 import { ForgetPassword } from "./pages/ForgetPassword";
+import Auth from "./layout/Auth";
+import User from "./layout/User";
+import { NotFound } from "./pages/NotFound";
 
 const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/map" element={<Map />} />
-        <Route path="/registration" element={<RegistrationForm />} />
-        <Route path="/meeting" element={<Meeting />} />
-        <Route path="/forget" element={<ForgetPassword />} />
+        <Route path="/auth" element={<Auth />}>
+          <Route index element={<Login />} />
+          <Route path="/auth/registration" element={<RegistrationForm />} />
+          <Route path="/auth/forget" element={<ForgetPassword />} />
+        </Route>
+
+        <Route path="/" element={<User />}>
+          <Route index element={<Map />} />
+          <Route path="/meeting" element={<Meeting />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

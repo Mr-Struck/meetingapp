@@ -5,6 +5,7 @@ import "../css/login.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useToken } from "../context/TokenContext";
+import img from "../images/GDPR-pana.png";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -26,7 +27,7 @@ export const Login = () => {
           console.log(response.data);
           const token = response.data.access_token;
           setAccessToken(token);
-          navigate("/map");
+          navigate("/");
         }
         setMsg(response.data.data);
         setInterval(() => {
@@ -38,89 +39,96 @@ export const Login = () => {
 
   return (
     <div className="form">
-      <h1>Welcome to DJT Meetings</h1>
-      <div className="form-contain">
-        <Typography.Title
-          style={{
-            fontFamily: "'Montserrat', sans-serif",
-            textAlign: "center",
-            marginBottom: 30,
-            fontSize: 30,
-          }}
-        >
-          Login Form
-        </Typography.Title>
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-        >
-          <Form.Item
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "Please input your email!",
-              },
-              {
-                type: "email",
-                message: "The input is not valid E-mail!",
-              },
-            ]}
+      <div className="contain">
+        <div className="image-container">
+          <img src={img} alt="img" />
+          {/* <h1>Welcome to DJT Meetings</h1> */}
+        </div>
+        <div className="form-contain">
+          <Typography.Title
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              textAlign: "center",
+              marginBottom: 30,
+              fontSize: 30,
+            }}
           >
-            <Input
-              size="large"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              prefix={<UserOutlined className="icon" />}
-              placeholder="Email Address"
-            />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[{ required: true, message: "Please input your Password!" }]}
+            Welcome, User
+          </Typography.Title>
+          <Form
+            name="normal_login"
+            className="login-form"
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
           >
-            <Input.Password
-              size="large"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              prefix={<LockOutlined className="icon" />}
-              type="password"
-              placeholder="Password"
-            />
-          </Form.Item>
-          <Form.Item>
-            <Link className="login-form-forgot" to="/forget">
-              Forgot password?
-            </Link>
-          </Form.Item>
-          <Form.Item>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                margin: "-20px 0",
-              }}
+            <Form.Item
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your email!",
+                },
+                {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                },
+              ]}
             >
-              <Button
+              <Input
                 size="large"
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-                style={{ width: "100%" }}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                prefix={<UserOutlined className="icon" />}
+                placeholder="Email Address"
+              />
+            </Form.Item>
+            <Form.Item
+              name="password"
+              rules={[
+                { required: true, message: "Please input your Password!" },
+              ]}
+            >
+              <Input.Password
+                size="large"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                prefix={<LockOutlined className="icon" />}
+                type="password"
+                placeholder="Password"
+              />
+            </Form.Item>
+            <Form.Item>
+              <Link className="login-form-forgot" to="/auth/forget">
+                Forgot password?
+              </Link>
+            </Form.Item>
+            <Form.Item>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "-20px 0",
+                }}
               >
-                Log in
-              </Button>
-            </div>
-            <br />
-            <p style={{ marginTop: 5, textAlign: "center" }}>
-              Not a Member? <Link to="/registration">register now!</Link>
-            </p>
-          </Form.Item>
-        </Form>
-        {msg && <p className="error">{msg}</p>}
+                <Button
+                  size="large"
+                  type="primary"
+                  htmlType="submit"
+                  className="login-form-button"
+                  style={{ width: "100%" }}
+                >
+                  Log in
+                </Button>
+              </div>
+              <br />
+              <p style={{ marginTop: 5, textAlign: "center" }}>
+                Not a Member? <Link to="/auth/registration">register now!</Link>
+              </p>
+            </Form.Item>
+          </Form>
+          {msg && <p className="error">{msg}</p>}
+        </div>
       </div>
     </div>
   );
