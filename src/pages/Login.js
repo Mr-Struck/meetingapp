@@ -43,6 +43,13 @@ export const Login = () => {
           const token = response.data.access_token;
           setAccessToken(token);
           sessionStorage.setItem("isLogin", "true");
+          sessionStorage.setItem("email", response.data.data.email);
+          sessionStorage.setItem("emp_id", response.data.data.emp_id);
+          sessionStorage.setItem(
+            "name",
+            response.data.data.first_name + " " + response.data.data.last_name
+          );
+          sessionStorage.setItem("department", response.data.data.department);
           navigate("/");
         }
         setMsg(response.data.data);

@@ -1,18 +1,11 @@
-import React, { useState } from "react";
-import {
-  DesktopOutlined,
-  PieChartOutlined,
-  PlusOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import { PlusOutlined } from "@ant-design/icons";
 import {
   Button,
   DatePicker,
   Form,
   Input,
   Layout,
-  Menu,
   Modal,
   Row,
   TimePicker,
@@ -23,19 +16,21 @@ import "../css/meeting.css";
 import moment from "moment";
 import axios from "axios";
 import { Table } from "../components/Table";
-import useToken from "antd/es/theme/useToken";
+import { Sidebar } from "../components/Sidebar";
+import { useToken } from "../context/TokenContext";
 
-const { Content, Sider } = Layout;
+const { Content } = Layout;
 
 const UserForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
-  const [email, setEmail] = useState("");
-  const [empId, setEmpId] = useState("");
-  const [name, setName] = useState("");
   const [start_date, setDate] = useState("");
   const [agenda, setAgenda] = useState("");
   const [desc, setDesc] = useState("");
-  const [dept, setDept] = useState("");
+
+  const dept = sessionStorage.getItem("department"),
+    email = sessionStorage.getItem("email"),
+    empId = sessionStorage.getItem("emp_id"),
+    name = sessionStorage.getItem("name");
 
   const { accessToken } = useToken();
 
@@ -49,8 +44,7 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
         approved: true,
         date: moment(start_date).format(),
         end_date: moment(endTime).format(),
-        duration: parseInt(duration.toFixed(0)),
-        time: moment(start_date).format("h:mm:ss"),
+        duration: parseInt(duration).toFixed(0),
         epoch: 0,
         internal_meeting: true,
         agenda: agenda,
@@ -61,13 +55,6 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
       .catch((err) => console.log(err));
     form.resetFields();
     onCreate(values, duration);
-  };
-
-  const customValidation = (_, value) => {
-    if (!value || value.indexOf("DJTCO") === -1) {
-      return Promise.reject(new Error('Value must contain "DJTCO"'));
-    }
-    return Promise.resolve();
   };
 
   const [startTime, setStartTime] = useState(null);
@@ -116,52 +103,16 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
     >
       <Form form={form} layout="vertical">
         <Row justify={"space-between"}>
-          <Form.Item
-            name="email"
-            label="Email"
-            rules={[{ required: true, type: "email" }]}
-          >
-            <Input
-              value={email}
-              placeholder={"tushar@djtcorp.in"}
-              style={{ width: "100%" }}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+          <Form.Item name="email" label="Email" initialValue={email}>
+            <Input disabled style={{ width: "100%" }} />
           </Form.Item>
-          <Form.Item
-            name="emp_id"
-            label="Employee ID"
-            rules={[
-              {
-                required: true,
-                validator: customValidation,
-              },
-            ]}
-          >
-            <Input
-              value={empId}
-              placeholder={"DJTCO0169"}
-              style={{ width: "100%" }}
-              onChange={(e) => setEmpId(e.target.value)}
-            />
+          <Form.Item name="emp_id" label="Employee ID" initialValue={empId}>
+            <Input disabled style={{ width: "100%" }} />
           </Form.Item>
         </Row>
         <Row justify={"space-between"}>
-          <Form.Item
-            name="name"
-            label="Full Name"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input
-              value={name}
-              placeholder="Full Name"
-              style={{ width: "100%" }}
-              onChange={(e) => setName(e.target.value)}
-            />
+          <Form.Item name="name" label="Full Name" initialValue={name}>
+            <Input disabled style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item
             name="date"
@@ -230,21 +181,8 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
               style={{ width: "100%" }}
             />
           </Form.Item>
-          <Form.Item
-            name="department"
-            label="Department"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input
-              value={dept}
-              onChange={(e) => setDept(e.target.value)}
-              placeholder="Department"
-              style={{ width: "100%" }}
-            />
+          <Form.Item name="department" label="Department" initialValue={dept}>
+            <Input disabled style={{ width: "100%" }} />
           </Form.Item>
         </Row>
         <Form.Item
@@ -270,90 +208,47 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
   );
 };
 
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
-const items = [
-  getItem("Analytics", "1", <PieChartOutlined />),
-  getItem("Meetings", "2", <DesktopOutlined />),
-  getItem("User", "sub1", <UserOutlined />, [
-    getItem("Tom", "3"),
-    getItem("Bill", "4"),
-    getItem("Alex", "5"),
-  ]),
-  getItem("Schedule", "sub2", <TeamOutlined />, [
-    getItem("New", "6"),
-    getItem("Previous", "8"),
-  ]),
-];
-
-// const columns = [
-//   { field: "id", headerName: "S.No.", width: 70 },
-//   {
-//     field: "full_name",
-//     headerName: "Full Name",
-//     description: "This column has a value getter and is not sortable.",
-//     sortable: false,
-//     width: 200,
-//   },
-//   { field: "email", headerName: "Email", width: 230 },
-//   { field: "date", headerName: "Start Time[hh:mm:ss]", width: 180 },
-//   {
-//     field: "end_date",
-//     headerName: "End Time[hh:mm:ss]",
-//     width: 180,
-//   },
-//   {
-//     field: "internal_meeting",
-//     headerName: "Internal?",
-//     type: "boolean",
-//     width: 120,
-//   },
-//   {
-//     field: "department",
-//     headerName: "Department",
-//     width: 130,
-//   },
-//   {
-//     field: "agenda",
-//     headerName: "Agenda",
-//     width: 150,
-//   },
-// ];
-
 export const Meeting = () => {
   const [visible, setVisible] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const [tableData, setTableData] = useState(null);
 
   const onCreate = (values, duration) => {
     console.log("Received values of form:", values);
-    const userDataWithDuration = { ...values, duration };
-    setUserData(userDataWithDuration);
     setVisible(false);
+
+    getTableData();
   };
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const { accessToken } = useToken();
+
+  const getTableData = () => {
+    fetch(`/aravalli/?token=${accessToken}`)
+      .then((resp) => resp.json())
+      .then((response) => {
+        console.log(response.data);
+        const dataWithSerial = response.data.map((item, index) => ({
+          ...item,
+          serialNumber: index + 1,
+        }));
+        setTableData(dataWithSerial);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getTableData();
+  }, [accessToken]);
+
   return (
     <Layout>
       <Headers />
       <Layout>
-        <Sider>
-          <div className="demo-logo-vertical" />
-          <Menu
-            theme="dark"
-            defaultSelectedKeys={["1"]}
-            mode="inline"
-            items={items}
-          />
-        </Sider>
+        <Sidebar />
         <Layout
           style={{
             padding: "24px 24px",
@@ -379,7 +274,7 @@ export const Meeting = () => {
                 New Meeting
               </Button>
               <h1>Upcoming Meetings</h1>
-              <Table />
+              <Table tableData={tableData} />
               <UserForm
                 visible={visible}
                 onCreate={onCreate}
@@ -387,36 +282,6 @@ export const Meeting = () => {
                   setVisible(false);
                 }}
               />
-              {userData && (
-                <div>
-                  <p>
-                    New Meeting created by: <span>{userData.email}</span>
-                  </p>
-                  <p>
-                    Full Name: <span>{userData.name}</span>
-                  </p>
-                  <p>
-                    Employee ID: <span>{userData.emp_id}</span>
-                  </p>
-                  <p>
-                    Date of the Meeting:{" "}
-                    <span>{moment(userData.date.$d).format("")}</span>
-                  </p>
-                  <p>
-                    Duration:{" "}
-                    <span>{userData.duration.toFixed(0)} minutes</span>
-                  </p>
-                  <p>
-                    Agenda: <span>{userData.agenda}</span>
-                  </p>
-                  <p>
-                    Department: <span>{userData.department}</span>
-                  </p>
-                  <p>
-                    Description: <span>{userData.description}</span>
-                  </p>
-                </div>
-              )}
             </div>
           </Content>
         </Layout>

@@ -143,8 +143,7 @@ export const ForgetPassword = () => {
               fontSize: 30,
             }}
           >
-            <h2 style={{ marginBottom: "-15px" }}>Forgot Password?</h2>
-            <h3>Don't worry we've got you...</h3>
+            Forgot Password?
           </Typography.Title>
           <Form
             name="forgot_form"

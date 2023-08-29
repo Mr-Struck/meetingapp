@@ -1,40 +1,12 @@
 import React, { useState } from "react";
 import "../css/map.css";
 import { Link } from "react-router-dom";
-import {
-  DesktopOutlined,
-  ManOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-  WomanOutlined,
-} from "@ant-design/icons";
-import { Input, Layout, Menu, theme } from "antd";
+import { ManOutlined, WomanOutlined } from "@ant-design/icons";
+import { Input, Layout, theme } from "antd";
 import { Headers } from "../components/Header";
+import { Sidebar } from "../components/Sidebar";
 
-const { Content, Sider } = Layout;
-
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
-const items = [
-  getItem("Analytics", "1", <PieChartOutlined />),
-  getItem("Meetings", "2", <DesktopOutlined />),
-  getItem("User", "sub1", <UserOutlined />, [
-    getItem("Tom", "3"),
-    getItem("Bill", "4"),
-    getItem("Alex", "5"),
-  ]),
-  getItem("Schedule", "sub2", <TeamOutlined />, [
-    getItem("New", "6"),
-    getItem("Previous", "8"),
-  ]),
-];
+const { Content } = Layout;
 
 export const Map = () => {
   const [people, setPeople] = useState("");
@@ -45,15 +17,7 @@ export const Map = () => {
     <Layout>
       <Headers />
       <Layout>
-        <Sider>
-          <div className="demo-logo-vertical" />
-          <Menu
-            theme="dark"
-            defaultSelectedKeys={["1"]}
-            mode="inline"
-            items={items}
-          />
-        </Sider>
+        <Sidebar />
         <Layout
           style={{
             padding: "24px 24px",

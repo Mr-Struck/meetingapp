@@ -22,7 +22,18 @@ export const Headers = () => {
           </li>
           <li>
             <Link to="/auth">
-              <Button icon={<LogoutOutlined />} type="primary" danger>
+              <Button
+                onClick={() => {
+                  sessionStorage.setItem("isLogin", "false");
+                  sessionStorage.removeItem("department");
+                  sessionStorage.removeItem("email");
+                  sessionStorage.removeItem("name");
+                  sessionStorage.removeItem("emp_id");
+                }}
+                icon={<LogoutOutlined />}
+                type="primary"
+                danger
+              >
                 Logout
               </Button>
             </Link>
