@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/map.css";
 import { Link } from "react-router-dom";
 import {
@@ -9,7 +9,7 @@ import {
   UserOutlined,
   WomanOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+import { Input, Layout, Menu, theme } from "antd";
 import { Headers } from "../components/Header";
 
 const { Content, Sider } = Layout;
@@ -37,6 +37,7 @@ const items = [
 ];
 
 export const Map = () => {
+  const [people, setPeople] = useState("");
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -67,6 +68,13 @@ export const Map = () => {
               background: colorBgContainer,
             }}
           >
+            <Input
+              type="number"
+              style={{ marginBottom: "-10px" }}
+              placeholder="Enter no. of people"
+              value={people}
+              onChange={(e) => setPeople(e.target.value)}
+            />
             <div className="container">
               <div className="map">
                 <div className="section section-a">
@@ -95,12 +103,28 @@ export const Map = () => {
                     <div className="compartment-label">Kitchen</div>
                   </div>
                 </div>
-                <div className="compartment compartment-e meet">
+                <div
+                  title="Needs Prior Approval"
+                  // className={`${
+                  //   people >= 16
+                  //     ? ""
+                  //     : "compartment compartment-e"
+                  // }`}
+                  className="compartment compartment-e himalaya"
+                >
                   <div className="compartment-label">
-                    <Link to={"/meeting"}>Himalayas Meeting Room</Link>
+                    {/* <Link to={"/meeting"}> */}
+                    Himalayas Meeting Room
+                    {/* </Link> */}
                   </div>
                 </div>
-                <div className="compartment compartment-f meet">
+                <div
+                  className={`${
+                    people >= 1 && people <= 4
+                      ? "compartment compartment-f meet"
+                      : "compartment compartment-f"
+                  }`}
+                >
                   <div className="compartment-label">
                     <Link to={"/meeting"}>Jing Meeting Room</Link>
                   </div>
@@ -126,7 +150,13 @@ export const Map = () => {
                   </div>
                 </div>
                 <div className="section section-o">
-                  <div className="compartment compartment-o meet">
+                  <div
+                    className={`${
+                      people >= 1 && people <= 12
+                        ? "compartment compartment-o meet"
+                        : "compartment compartment-o"
+                    }`}
+                  >
                     <div className="compartment-label">
                       <Link to={"/meeting"}>Aravalli Meeting Room</Link>
                     </div>
@@ -136,13 +166,25 @@ export const Map = () => {
                       Embedded and IoT Cabin
                     </div>
                   </div>
-                  <div className="compartment compartment-q meet">
+                  <div
+                    className={`${
+                      people >= 1 && people <= 4
+                        ? "compartment compartment-q meet"
+                        : "compartment compartment-q"
+                    }`}
+                  >
                     <div className="compartment-label">
                       <Link to={"/meeting"}>Sahayadri Meeting Room</Link>
                     </div>
                   </div>
                 </div>
-                <div className="compartment compartment-r meet">
+                <div
+                  className={`${
+                    people >= 1 && people <= 15
+                      ? "compartment compartment-r meet"
+                      : "compartment compartment-r"
+                  }`}
+                >
                   <div className="compartment-label">
                     <Link to={"/meeting"}>Nilgiri Meeting Room</Link>
                   </div>
@@ -186,7 +228,13 @@ export const Map = () => {
                     <div className="compartment-label">Cafeteria</div>
                   </div>
                 </div>
-                <div className="compartment compartment-ac meet">
+                <div
+                  className={`${
+                    people >= 20
+                      ? "compartment compartment-ac meet"
+                      : "compartment compartment-ac"
+                  }`}
+                >
                   <div className="compartment-label">Trisul</div>
                 </div>
                 <div className="compartment compartment-ag">

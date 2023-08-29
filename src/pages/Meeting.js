@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -22,8 +22,8 @@ import { Headers } from "../components/Header";
 import "../css/meeting.css";
 import moment from "moment";
 import axios from "axios";
-import { useToken } from "../context/TokenContext";
 import { Table } from "../components/Table";
+import useToken from "antd/es/theme/useToken";
 
 const { Content, Sider } = Layout;
 
@@ -37,9 +37,11 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
   const [desc, setDesc] = useState("");
   const [dept, setDept] = useState("");
 
+  const { accessToken } = useToken();
+
   const onFinish = (values, duration) => {
     axios
-      .post("/aravalli/user/schedule", {
+      .post(`/aravalli/user/schedule?token=${accessToken}`, {
         email: email,
         emp_id: empId,
         full_name: name,
@@ -327,21 +329,6 @@ const items = [
 export const Meeting = () => {
   const [visible, setVisible] = useState(false);
   const [userData, setUserData] = useState(null);
-  const [data, setData] = useState([]);
-
-  const { accessToken } = useToken();
-
-  useEffect(() => {
-    fetch(`/aravalli/?token=${accessToken}`)
-      .then((resp) => resp.json())
-      .then((response) => {
-        console.log(response.data);
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [accessToken]);
 
   const onCreate = (values, duration) => {
     console.log("Received values of form:", values);
@@ -392,7 +379,7 @@ export const Meeting = () => {
                 New Meeting
               </Button>
               <h1>Upcoming Meetings</h1>
-              <Table data={data} />
+              <Table />
               <UserForm
                 visible={visible}
                 onCreate={onCreate}

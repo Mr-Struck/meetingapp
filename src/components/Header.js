@@ -21,7 +21,7 @@ export const Headers = () => {
             <Clock />
           </li>
           <li>
-            <Link to="/">
+            <Link to="/auth">
               <Button icon={<LogoutOutlined />} type="primary" danger>
                 Logout
               </Button>

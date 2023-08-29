@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../css/table.css";
+import { useToken } from "../context/TokenContext";
 
-export const Table = ({ data }) => {
-  console.log("qwerty", data);
+export const Table = () => {
+  const [data, setData] = useState([]);
+
+  const { accessToken } = useToken();
+
+  useEffect(() => {
+    fetch(`/aravalli/?token=${accessToken}`)
+      .then((resp) => resp.json())
+      .then((response) => {
+        console.log(response.data);
+        const dataWithSerial = response.data.map((item, index) => ({
+          ...item,
+          serialNumber: index + 1,
+        }));
+        setData(dataWithSerial);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [accessToken]);
+
   return (
     <div>
       <table className="custom-table">
@@ -18,9 +38,9 @@ export const Table = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
-              <td>{item?.sno}</td>
+          {data.map((item) => (
+            <tr key={item.serialNumber}>
+              <td>{item?.serialNumber}</td>
               <td>{item?.email}</td>
               <td>{item?.full_name}</td>
               <td>{item?.date}</td>

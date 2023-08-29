@@ -2,7 +2,7 @@ body {
   overflow: hidden;
 }
 .container {
-  height: 83vh;
+  height: 80.5vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,23 +30,23 @@ body {
   position: absolute;
   border: 1px solid #666;
   background-color: #ffcccc;
-  opacity: 0.8;
+  opacity: 0.85;
+  pointer-events: none;
   z-index: 1;
   transition: all 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.compartment:hover {
-  opacity: 1;
-}
-.compartment.meet:hover {
-  opacity: 1;
-  box-shadow: 10px 10px rgba(0, 0, 0, 0.5);
-}
 .compartment.meet {
   background-color: #ccffcc;
   cursor: pointer;
+  pointer-events: auto;
+}
+.compartment.meet:hover {
+  opacity: 1;
+  pointer-events: auto;
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.5);
 }
 .compartment.meet .compartment-label {
   font-size: 11px;
@@ -164,6 +164,13 @@ body {
   left: 120px;
   width: 200px;
   height: 80px;
+}
+.compartment.compartment-e.himalaya {
+  background-color: skyblue;
+  pointer-events: auto;
+}
+.compartment.compartment-e.himalaya:hover {
+  opacity: 1;
 }
 .compartment.compartment-f {
   top: 200px;

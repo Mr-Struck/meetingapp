@@ -5,7 +5,7 @@ import "../css/login.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useToken } from "../context/TokenContext";
-import img from "../images/GDPR-pana.png";
+import img from "../images/Tablet login-bro.png";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -42,6 +42,7 @@ export const Login = () => {
           console.log(response.data);
           const token = response.data.access_token;
           setAccessToken(token);
+          sessionStorage.setItem("isLogin", "true");
           navigate("/");
         }
         setMsg(response.data.data);

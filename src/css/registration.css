@@ -4,3 +4,20 @@
 .password ul li {
   margin-left: 20px;
 }
+.containee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 0 0 0 20px;
+  border-radius: 1em;
+  overflow: hidden;
+}
+.imgcontain {
+  padding: 10px;
+  background-color: #000;
+  border-radius: 1em;
+}
+.imgcontain img {
+  height: 560px;
+}

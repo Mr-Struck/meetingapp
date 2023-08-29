@@ -12,6 +12,7 @@ import {
   NumberOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import regimg from "../images/Mobile login-pana.png";
 
 const dropValues = [
   "IT/Tech",
@@ -37,7 +38,7 @@ const text = (
 const item = [
   {
     key: 1,
-    label: "Rules for correct password",
+    label: "Rules for setting correct password",
     children: text,
   },
 ];
@@ -102,214 +103,210 @@ export const RegistrationForm = () => {
 
   return (
     <div className="form">
-      <div className="form-container">
-        <Typography.Title
-          style={{
-            fontFamily: "'Montserrat', sans-serif",
-            textAlign: "center",
-            marginBottom: 30,
-            fontSize: 30,
-          }}
-        >
-          Hello new user, register here
-        </Typography.Title>
-        <Form
-          name="register-form"
-          form={form}
-          onFinish={onFinish}
-          layout="vertical"
-        >
-          <Row justify={"space-between"}>
-            <Form.Item
-              name="first_name"
-              label="First Name"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your first name",
-                },
-              ]}
-            >
-              <Input
-                prefix={<UserOutlined className="icon" />}
-                value={firstName}
-                placeholder="Enter your first name"
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item
-              name="last_name"
-              label="Last Name"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your last name",
-                },
-              ]}
-            >
-              <Input
-                prefix={<UserOutlined className="icon" />}
-                value={lastName}
-                placeholder="Enter your last name"
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </Form.Item>
-          </Row>
-          <Row justify={"space-between"}>
-            <Form.Item
-              name="mobile"
-              label="Mobile Number"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your mobile number",
-                },
-              ]}
-            >
-              <Input
-                prefix={<NumberOutlined className="icon" />}
-                value={mobile}
-                type="number"
-                placeholder="Enter your mobile number"
-                onChange={(e) => setMobile(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item
-              name="email"
-              label="Email"
-              rules={[
-                {
-                  type: "email",
-                  message: "Please enter a valid email",
-                },
-                {
-                  required: true,
-                  message: "Please enter your email",
-                },
-                { validator: CustomEmailValidator },
-              ]}
-            >
-              <Input
-                prefix={<MailOutlined className="icon" />}
-                value={email}
-                placeholder="Enter your email"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Item>
-          </Row>
-          <Row justify="space-between">
-            <Form.Item
-              name="password"
-              label="Password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your password",
-                },
-                {
-                  pattern:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                  message: "Please enter correct password",
-                },
-              ]}
-            >
-              <Input.Password
-                style={{
-                  width: "346px",
-                }}
-                prefix={<LockOutlined className="icon" />}
-                value={password}
-                placeholder="Enter your password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item
-              name="emp_id"
-              label="Employee ID"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your employee ID",
-                },
-              ]}
-            >
-              <Input
-                suffix={<IdcardOutlined className="icon" />}
-                value={employee}
-                placeholder="Enter your employee ID"
-                onChange={(e) => setEmployee(e.target.value)}
-              />
-            </Form.Item>
-          </Row>
-          <Row justify="space-between">
-            <Form.Item
-              name="designation"
-              label="Designation"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your designation",
-                },
-              ]}
-            >
-              <Input
-                suffix={<DesktopOutlined className="icon" />}
-                value={designation}
-                placeholder="Enter your designation"
-                onChange={(e) => setDesignation(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item
-              name="department"
-              label="Department"
-              rules={[
-                {
-                  required: true,
-                  message: "Please select your department",
-                },
-              ]}
-            >
-              <Select
-                style={{ width: "346px" }}
-                labelInValue
-                placeholder="Select your department"
-                onChange={(value) => setDepartment(value.label)}
+      <div className="containee">
+        <div className="imgcontain">
+          <img src={regimg} alt="img" />
+        </div>
+        <div className="form-container">
+          <Typography.Title
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              textAlign: "center",
+              marginBottom: 30,
+              fontSize: 30,
+            }}
+          >
+            New user? Register Here
+          </Typography.Title>
+          <Form
+            name="register-form"
+            form={form}
+            onFinish={onFinish}
+            layout="vertical"
+          >
+            <Row justify={"space-between"}>
+              <Form.Item
+                name="first_name"
+                label="First Name"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your first name",
+                  },
+                ]}
               >
-                {dropValues.map((value, i) => {
-                  return <Select.Option key={i}>{value}</Select.Option>;
-                })}
-              </Select>
-            </Form.Item>
-          </Row>
-          <Form.Item>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
+                <Input
+                  prefix={<UserOutlined className="icon" />}
+                  value={firstName}
+                  placeholder="Enter your first name"
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item
+                name="last_name"
+                label="Last Name"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your last name",
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<UserOutlined className="icon" />}
+                  value={lastName}
+                  placeholder="Enter your last name"
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </Form.Item>
+            </Row>
+            <Row justify={"space-between"}>
+              <Form.Item
+                name="mobile"
+                label="Mobile Number"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your mobile number",
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<NumberOutlined className="icon" />}
+                  value={mobile}
+                  type="number"
+                  placeholder="Enter your mobile number"
+                  onChange={(e) => setMobile(e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item
+                name="email"
+                label="Email"
+                rules={[
+                  {
+                    type: "email",
+                    message: "Please enter a valid email",
+                  },
+                  {
+                    required: true,
+                    message: "Please enter your email",
+                  },
+                  { validator: CustomEmailValidator },
+                ]}
+              >
+                <Input
+                  prefix={<MailOutlined className="icon" />}
+                  value={email}
+                  placeholder="Enter your email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Item>
+            </Row>
+            <Row justify="space-between">
+              <Form.Item
+                name="password"
+                label="Password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your password",
+                  },
+                  {
+                    pattern:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    message: "Please enter correct password",
+                  },
+                ]}
+              >
+                <Input.Password
+                  style={{
+                    width: "346px",
+                  }}
+                  prefix={<LockOutlined className="icon" />}
+                  value={password}
+                  placeholder="Enter your password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item
+                name="emp_id"
+                label="Employee ID"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your employee ID",
+                  },
+                ]}
+              >
+                <Input
+                  suffix={<IdcardOutlined className="icon" />}
+                  value={employee}
+                  placeholder="Enter your employee ID"
+                  onChange={(e) => setEmployee(e.target.value)}
+                />
+              </Form.Item>
+            </Row>
+            <Row justify="space-between">
+              <Form.Item
+                name="designation"
+                label="Designation"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your designation",
+                  },
+                ]}
+              >
+                <Input
+                  suffix={<DesktopOutlined className="icon" />}
+                  value={designation}
+                  placeholder="Enter your designation"
+                  onChange={(e) => setDesignation(e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item
+                name="department"
+                label="Department"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please select your department",
+                  },
+                ]}
+              >
+                <Select
+                  style={{ width: "346px" }}
+                  labelInValue
+                  placeholder="Select your department"
+                  onChange={(value) => setDepartment(value.label)}
+                >
+                  {dropValues.map((value, i) => {
+                    return <Select.Option key={i}>{value}</Select.Option>;
+                  })}
+                </Select>
+              </Form.Item>
+            </Row>
+            <Form.Item>
               <Button
-                shape="round"
                 size="large"
                 type="primary"
                 htmlType="submit"
+                style={{ width: "100%" }}
               >
-                Submit
+                Sign Up
               </Button>
-              <br />
-            </div>
-            <p style={{ marginTop: 5 }}>
-              Already registered? <Link to="/auth">Login!</Link>
-            </p>
-          </Form.Item>
-          {msg && <p className="error">{msg}</p>}
-        </Form>
-        <div className="password">
-          <Collapse items={item} bordered={true} />
+              <p style={{ marginTop: 15 }}>
+                Already registered? <Link to="/auth">Login!</Link>
+              </p>
+            </Form.Item>
+            {msg && <p className="error">{msg}</p>}
+          </Form>
+          <div className="password">
+            <Collapse items={item} bordered={true} />
+          </div>
         </div>
+        <Toaster />
       </div>
-      <Toaster />
     </div>
   );
 };
