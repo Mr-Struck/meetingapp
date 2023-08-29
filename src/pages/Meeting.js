@@ -24,6 +24,7 @@ const { Content } = Layout;
 const UserForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
   const [start_date, setDate] = useState("");
+  const [end_date, setEndDate] = useState("");
   const [agenda, setAgenda] = useState("");
   const [desc, setDesc] = useState("");
 
@@ -43,7 +44,7 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
         access_code: 0,
         approved: true,
         date: moment(start_date).format(),
-        end_date: moment(endTime).format(),
+        end_date: moment(end_date).format(),
         duration: parseInt(duration).toFixed(0),
         epoch: 0,
         internal_meeting: true,
@@ -128,11 +129,28 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
               showTime
               placeholder="Meeting date"
               style={{ width: "220px" }}
-              onChange={(e) => setDate(e.target)}
+              onChange={(date) => setDate(date.$d)}
             />
           </Form.Item>
         </Row>
         <Row justify={"space-between"}>
+          <Form.Item
+            name="end_date"
+            label="End Date of Meeting"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <DatePicker
+              value={end_date}
+              showTime
+              placeholder="Meeting end date"
+              style={{ width: "220px" }}
+              onChange={(date) => setEndDate(date.$d)}
+            />
+          </Form.Item>
           <Form.Item
             name="start_time"
             label="Start Time"
