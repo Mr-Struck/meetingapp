@@ -31,6 +31,9 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
   const [endTime, setEndTime] = useState(null);
   const [duration, setDuration] = useState(null);
 
+  const today = new Date();
+  const epoch = Math.floor(today.valueOf() / 1000);
+
   const dept = sessionStorage.getItem("department"),
     email = sessionStorage.getItem("email"),
     empId = sessionStorage.getItem("emp_id"),
@@ -49,8 +52,8 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
         date: moment(startTime.$d).format(),
         end_date: moment(endTime.$d).format(),
         duration: parseInt(duration),
-        epoch: 0,
-        internal_meeting: false,
+        epoch: epoch,
+        internal_meeting: true,
         agenda: agenda,
         department: dept,
         description: desc,
@@ -120,12 +123,12 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
           </Form.Item>
         </Row>
         <Row justify={"space-between"}>
-          <Form.Item name="date" label="Date of Meeting">
-            <DatePicker
-              defaultValue={moment()}
-              style={{ width: "220px" }}
-              disabled
-            />
+          <Form.Item
+            name="date"
+            label="Date of Meeting"
+            initialValue={moment()}
+          >
+            <DatePicker style={{ width: "220px" }} disabled />
           </Form.Item>
           <Form.Item
             name="agenda"
