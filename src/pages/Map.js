@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../css/map.css";
 import { Link } from "react-router-dom";
 import { ManOutlined, WomanOutlined } from "@ant-design/icons";
-import { Input, Layout, theme } from "antd";
+import { Form, Input, Layout, theme } from "antd";
 import { Headers } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 
@@ -20,25 +20,27 @@ export const Map = () => {
         <Sidebar />
         <Layout
           style={{
-            padding: "24px 24px",
+            height: "93vh",
+            padding: "24px",
             background: "#aaaccc",
           }}
         >
           <Content
             style={{
-              padding: "24px 24px",
+              padding: "24px",
               borderRadius: "12px",
               margin: 0,
               background: colorBgContainer,
             }}
           >
-            <Input
-              type="number"
-              style={{ marginBottom: "-10px" }}
-              placeholder="Enter no. of people"
-              value={people}
-              onChange={(e) => setPeople(e.target.value)}
-            />
+            <Form.Item label="Set No. of People">
+              <Input
+                type="number"
+                placeholder="Enter no. of people"
+                value={people}
+                onChange={(e) => setPeople(e.target.value)}
+              />
+            </Form.Item>
             <div className="container">
               <div className="map">
                 <div className="section section-a">
@@ -89,9 +91,7 @@ export const Map = () => {
                       : "compartment compartment-f"
                   }`}
                 >
-                  <div className="compartment-label">
-                    <Link to={"/meeting"}>Jing Meeting Room</Link>
-                  </div>
+                  <div className="compartment-label">Jing Meeting Room</div>
                 </div>
                 <div className="compartment compartment-g">
                   <div className="compartment-label">MD Sir's Room</div>
@@ -138,7 +138,7 @@ export const Map = () => {
                     }`}
                   >
                     <div className="compartment-label">
-                      <Link to={"/meeting"}>Sahayadri Meeting Room</Link>
+                      Sahayadri Meeting Room
                     </div>
                   </div>
                 </div>
@@ -149,9 +149,7 @@ export const Map = () => {
                       : "compartment compartment-r"
                   }`}
                 >
-                  <div className="compartment-label">
-                    <Link to={"/meeting"}>Nilgiri Meeting Room</Link>
-                  </div>
+                  <div className="compartment-label">Nilgiri Meeting Room</div>
                 </div>
                 <div className="section section-s">
                   <div className="compartment compartment-s">
@@ -194,7 +192,7 @@ export const Map = () => {
                 </div>
                 <div
                   className={`${
-                    people >= 20
+                    people >= 1 && people <= 20
                       ? "compartment compartment-ac meet"
                       : "compartment compartment-ac"
                   }`}

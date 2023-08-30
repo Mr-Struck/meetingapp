@@ -23,10 +23,13 @@ const { Content } = Layout;
 
 const UserForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
-  const [start_date, setDate] = useState("");
-  const [end_date, setEndDate] = useState("");
+  // const [start_date, setDate] = useState("");
+  // const [end_date, setEndDate] = useState("");
   const [agenda, setAgenda] = useState("");
   const [desc, setDesc] = useState("");
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
+  const [duration, setDuration] = useState(null);
 
   const dept = sessionStorage.getItem("department"),
     email = sessionStorage.getItem("email"),
@@ -43,11 +46,11 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
         full_name: name,
         access_code: 0,
         approved: true,
-        date: moment(start_date).format(),
-        end_date: moment(end_date).format(),
-        duration: parseInt(duration).toFixed(0),
+        date: moment(startTime.$d).format(),
+        end_date: moment(endTime.$d).format(),
+        duration: parseInt(duration),
         epoch: 0,
-        internal_meeting: true,
+        internal_meeting: false,
         agenda: agenda,
         department: dept,
         description: desc,
@@ -58,24 +61,21 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
     onCreate(values, duration);
   };
 
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
-  const [duration, setDuration] = useState(null);
-
   const handleStartTimeChange = (time) => {
     setStartTime(time);
-    calculateDuration(time, endTime);
+    updateDuration(time, endTime);
   };
 
   const handleEndTimeChange = (time) => {
     setEndTime(time);
-    calculateDuration(startTime, time);
+    updateDuration(startTime, time);
   };
 
-  const calculateDuration = (start, end) => {
-    if (start && end && start < end) {
-      const durationInMinutes = moment.duration(end.diff(start)).asMinutes();
-      setDuration(durationInMinutes);
+  const updateDuration = (start, end) => {
+    if (start && end && start <= end) {
+      const duration = moment.duration(end.diff(start));
+      const totalMinutes = duration.asMinutes();
+      setDuration(totalMinutes.toFixed(0));
     } else {
       setDuration(null);
     }
@@ -115,42 +115,36 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
           <Form.Item name="name" label="Full Name" initialValue={name}>
             <Input disabled style={{ width: "100%" }} />
           </Form.Item>
+          <Form.Item name="department" label="Department" initialValue={dept}>
+            <Input disabled style={{ width: "100%" }} />
+          </Form.Item>
+        </Row>
+        <Row justify={"space-between"}>
+          <Form.Item name="date" label="Date of Meeting">
+            <DatePicker
+              defaultValue={moment()}
+              style={{ width: "220px" }}
+              disabled
+            />
+          </Form.Item>
           <Form.Item
-            name="date"
-            label="Date of Meeting"
+            name="agenda"
+            label="Agenda"
             rules={[
               {
                 required: true,
               },
             ]}
           >
-            <DatePicker
-              value={start_date}
-              showTime
-              placeholder="Meeting date"
-              style={{ width: "220px" }}
-              onChange={(date) => setDate(date.$d)}
+            <Input
+              value={agenda}
+              onChange={(e) => setAgenda(e.target.value)}
+              placeholder="Agenda"
+              style={{ width: "100%" }}
             />
           </Form.Item>
         </Row>
         <Row justify={"space-between"}>
-          <Form.Item
-            name="end_date"
-            label="End Date of Meeting"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <DatePicker
-              value={end_date}
-              showTime
-              placeholder="Meeting end date"
-              style={{ width: "220px" }}
-              onChange={(date) => setEndDate(date.$d)}
-            />
-          </Form.Item>
           <Form.Item
             name="start_time"
             label="Start Time"
@@ -180,27 +174,6 @@ const UserForm = ({ visible, onCreate, onCancel }) => {
               onChange={handleEndTimeChange}
               style={{ width: "220px" }}
             />
-          </Form.Item>
-        </Row>
-        <Row justify={"space-between"}>
-          <Form.Item
-            name="agenda"
-            label="Agenda"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input
-              value={agenda}
-              onChange={(e) => setAgenda(e.target.value)}
-              placeholder="Agenda"
-              style={{ width: "100%" }}
-            />
-          </Form.Item>
-          <Form.Item name="department" label="Department" initialValue={dept}>
-            <Input disabled style={{ width: "100%" }} />
           </Form.Item>
         </Row>
         <Form.Item
@@ -269,37 +242,58 @@ export const Meeting = () => {
         <Sidebar />
         <Layout
           style={{
+            height: "93vh",
             padding: "24px 24px",
             background: "#aaaccc",
           }}
         >
           <Content
             style={{
-              padding: "24px 24px",
+              padding: "24px",
               borderRadius: "12px",
-              margin: 0,
               background: colorBgContainer,
             }}
           >
             <div className="meeting">
-              <Button
-                icon={<PlusOutlined />}
-                type="primary"
-                onClick={() => {
-                  setVisible(true);
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
                 }}
               >
-                New Meeting
-              </Button>
-              <h1>Upcoming Meetings</h1>
-              <Table tableData={tableData} />
-              <UserForm
-                visible={visible}
-                onCreate={onCreate}
-                onCancel={() => {
-                  setVisible(false);
-                }}
-              />
+                <h1
+                  style={{
+                    color: "#1677ff",
+                    textShadow: "5px 5px 5px rgba(0, 0, 0, 0.2)",
+                    fontSize: "35px",
+                  }}
+                >
+                  Aravalli Meeting Room
+                </h1>
+                <Button
+                  icon={<PlusOutlined />}
+                  type="primary"
+                  onClick={() => {
+                    setVisible(true);
+                  }}
+                >
+                  New Meeting
+                </Button>
+              </div>
+              <div style={{ padding: "0 10px" }}>
+                <h2 style={{ marginBottom: "20px" }}>
+                  Upcoming Meetings of the Day
+                </h2>
+                <Table tableData={tableData} />
+                <UserForm
+                  visible={visible}
+                  onCreate={onCreate}
+                  onCancel={() => {
+                    setVisible(false);
+                  }}
+                />
+              </div>
             </div>
           </Content>
         </Layout>
