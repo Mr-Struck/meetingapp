@@ -63,7 +63,7 @@ export const Map = () => {
                     </div>
                   </div>
                   <div className="compartment compartment-h">
-                    <div className="compartment-label">MD sir Washroom</div>
+                    <div className="compartment-label">Head Washroom</div>
                   </div>
                   <div className="compartment compartment-i">
                     <div className="compartment-label">Kitchen</div>
@@ -80,7 +80,7 @@ export const Map = () => {
                 >
                   <div className="compartment-label">
                     {/* <Link to={"/meeting"}> */}
-                    Himalayas Meeting Room
+                    Pacific Meeting Room
                     {/* </Link> */}
                   </div>
                 </div>
@@ -91,10 +91,10 @@ export const Map = () => {
                       : "compartment compartment-f"
                   }`}
                 >
-                  <div className="compartment-label">Jing Meeting Room</div>
+                  <div className="compartment-label">Arctic Meeting Room</div>
                 </div>
                 <div className="compartment compartment-g">
-                  <div className="compartment-label">MD Sir's Room</div>
+                  <div className="compartment-label">Head Room</div>
                 </div>
                 <div className="compartment compartment-j">
                   <div className="compartment-label">Finance Department</div>
@@ -122,7 +122,7 @@ export const Map = () => {
                     }`}
                   >
                     <div className="compartment-label">
-                      <Link to={"/meeting"}>Aravalli Meeting Room</Link>
+                      <Link to={"/meeting"}>Atlantic Meeting Room</Link>
                     </div>
                   </div>
                   <div className="compartment compartment-p">
@@ -138,7 +138,7 @@ export const Map = () => {
                     }`}
                   >
                     <div className="compartment-label">
-                      Sahayadri Meeting Room
+                      Indian Meeting Room
                     </div>
                   </div>
                 </div>
@@ -149,7 +149,7 @@ export const Map = () => {
                       : "compartment compartment-r"
                   }`}
                 >
-                  <div className="compartment-label">Nilgiri Meeting Room</div>
+                  <div className="compartment-label">Southern Meeting Room</div>
                 </div>
                 <div className="section section-s">
                   <div className="compartment compartment-s">
@@ -197,10 +197,10 @@ export const Map = () => {
                       : "compartment compartment-ac"
                   }`}
                 >
-                  <div className="compartment-label">Trisul</div>
+                  <div className="compartment-label">Antarctic Meeting Room</div>
                 </div>
                 <div className="compartment compartment-ag">
-                  <div className="compartment-label">Director's Room</div>
+                  <div className="compartment-label">Head Room</div>
                 </div>
                 <div className="compartment compartment-ae">
                   <div className="compartment-label">Electric Room</div>
