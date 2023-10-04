@@ -14,7 +14,7 @@ export const Headers = () => {
 
   return (
     <nav className="navbar">
-      <div className="logo">DJT Meetings</div>
+      <div className="logo">Meeting App</div>
       <div className={`menu ${isOpen ? "active" : ""}`}>
         <ul>
           <li>
